@@ -3,20 +3,13 @@ import { DeployFunction } from "hardhat-deploy/dist/types"
 
 const deployFunction: DeployFunction = async ({ deployments }) => {
     const { log } = deployments
-    const openZeppelinImplementationTokenContractFactory = await ethers.getContractFactory(
-        "MyToken"
-    )
+    const myTokenFactory = await ethers.getContractFactory("MyToken")
     let initialSupply = "10000000000000000000000" // 10000 * 1e18
 
     log("Deploying token...")
-    const openZeppelinImplementationToken =
-        await openZeppelinImplementationTokenContractFactory.deploy(
-            "OpenZeppelin Token",
-            "OZT",
-            initialSupply
-        )
-    await openZeppelinImplementationToken.deployed()
-    log(`Token deployed to: ${openZeppelinImplementationToken.address}`)
+    const myToken = await myTokenFactory.deploy("OpenZeppelin Token", "OZT", initialSupply)
+    await myToken.deployed()
+    log(`Token deployed to: ${myToken.address}`)
     log("----------------------------------------------------")
 }
 
